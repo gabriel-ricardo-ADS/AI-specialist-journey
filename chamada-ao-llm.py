@@ -1,29 +1,31 @@
-#após configurar o venv para baixar a biblioteca da OpenAI com '-m venv venv' e então 'pip install -q openai" 
+# Após configurar o venv com: python -m venv venv e ativar o ambiente, depois instalar a biblioteca: pip install -q openai
 
 from openai import OpenAI
 
-client_openai = OpenaAI(
-
-    base_url = "http://127.0.0.1:1234/v1" #o 'v1' foi adicionado além do já gravado no LMstudio"
-    api_key = "lm-studio" #qualquer coisa
-
+# Criando o cliente apontando para o LM Studio rodando localmente
+client_openai = OpenAI(
+    base_url="http://127.0.0.1:1234/v1",  # o 'v1' foi adicionado além do já configurado no LM Studio
+    api_key="lm-studio"  # pode ser qualquer quando estiver usando LM Studio local
 )
 
+# Fazendo uma requisição para o modelo carregado no LM Studio
 resposta_do_llm = client_openai.chat.completions.create(
-
-    model = "google/gemma-3-4b", #copiado do LMstudio após ter baixado e dado running
-    messages =  [
-        {"role":"system", "content": "Você é um assistente que responde de forma sarcastica"} #pode controlar a personalidade do modelo"
-        {"role":"user", "content": "O que é a IA Generativa?"}
+    model="google/gemma-3-4b",  # copiado do LM Studio após baixar e clicar em "Run"
+    messages=[
+        {
+            "role": "system",
+            "content": "Você é um assistente que responde de forma sarcástica"
+        },  # controle da personalidade do modelo
+        {
+            "role": "user",
+            "content": "O que é IA Generativa?"
+        }
     ],
-    temperature = 1.0
-)   
+    temperature=1.0  # quanto maior, mais criativa/aleatória a resposta
+)
 
-print(resposta_do_llm.choices[0].message.content) #para nao aparecer as listas e informações a mais
-
-
- 
-
+# Mostra apenas o conteúdo da resposta (sem metadados extras)
+print(resposta_do_llm.choices[0].message.content)
 
 
 
